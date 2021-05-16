@@ -2,16 +2,24 @@ package com.shinmiy.qrcodereader
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Size
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.common.util.concurrent.ListenableFuture
+import com.google.mlkit.vision.barcode.Barcode
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.common.InputImage
 import com.shinmiy.qrcodereader.databinding.FragmentCameraBinding
 
+@androidx.camera.core.ExperimentalGetImage
 class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private val binding: FragmentCameraBinding by lazy { FragmentCameraBinding.bind(requireView()) }
@@ -43,15 +51,59 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener(
             {
-                val preview: Preview = Preview.Builder().build()
-                val cameraSelector: CameraSelector = CameraSelector.Builder()
+                val cameraSelector = CameraSelector.Builder()
                     .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                     .build()
-                preview.setSurfaceProvider(binding.previewView.surfaceProvider)
 
-                val camera = cameraProviderFuture.get().bindToLifecycle(this, cameraSelector, preview)
+                val imageAnalysis = ImageAnalysis.Builder()
+                    .setTargetResolution(Size(1280, 720))
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .apply {
+                        setAnalyzer(Runnable::run, BarcodeAnalyzer { barcodes ->
+                            barcodes.forEach {
+                                // TODO: do something with barcodes
+                                println("${it.url?.url}")
+                            }
+                            clearAnalyzer()
+                            cameraProviderFuture.get().unbindAll()
+                        })
+                    }
+
+                val preview = Preview.Builder().build().apply {
+                    setSurfaceProvider(binding.previewView.surfaceProvider)
+                }
+
+                cameraProviderFuture
+                    .get()
+                    .bindToLifecycle(this, cameraSelector, imageAnalysis, preview)
             },
             ContextCompat.getMainExecutor(requireContext()),
         )
     }
+}
+
+@androidx.camera.core.ExperimentalGetImage
+private class BarcodeAnalyzer(private val onScan: (List<Barcode>) -> Unit) : ImageAnalysis.Analyzer {
+
+    private val scannerOptions = BarcodeScannerOptions.Builder()
+        .setBarcodeFormats(
+            Barcode.FORMAT_QR_CODE,
+            Barcode.FORMAT_EAN_13,
+            Barcode.FORMAT_EAN_8,
+        ).build()
+
+    override fun analyze(imageProxy: ImageProxy) {
+        val mediaImage = imageProxy.image ?: return
+        val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+
+        BarcodeScanning.getClient(scannerOptions).process(image)
+            .addOnSuccessListener { barcodes ->
+                if (barcodes.isEmpty()) return@addOnSuccessListener
+                onScan(barcodes)
+            }
+            .addOnFailureListener { println(it) }
+            .addOnCompleteListener { imageProxy.close() }
+    }
+
 }
