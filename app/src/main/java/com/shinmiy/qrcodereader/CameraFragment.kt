@@ -9,9 +9,13 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
+import androidx.camera.core.UseCase
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -28,22 +32,12 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         when {
             // Check if app has permission to use camera
-            requireContext().hasPermission(Manifest.permission.CAMERA) -> {
-                launchCamera()
-            }
+            requireContext().hasPermission(Manifest.permission.CAMERA) -> launchCamera()
             // Check if app should show request dialog
             // "This method returns true if the app has requested this permission previously and the user denied the request."
-            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                // TODO: show dialog explaining need to use camera
-            }
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> Unit // TODO: show dialog explaining need to use camera
             // App should ask for permission to use camera
-            else -> {
-                val requestPermissionLauncher = registerForActivityResult(RequestPermission()) { isGranted ->
-                    if (isGranted.not()) requireActivity().finish() // can't do anything without camera
-                    launchCamera()
-                }
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            }
+            else -> requestPermission(Manifest.permission.CAMERA, this::launchCamera, requireActivity()::finish)
         }
     }
 
