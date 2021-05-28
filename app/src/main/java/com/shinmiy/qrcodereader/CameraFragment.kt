@@ -16,18 +16,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import com.shinmiy.qrcodereader.databinding.FragmentCameraBinding
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 @androidx.camera.core.ExperimentalGetImage
 class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private val binding: FragmentCameraBinding by lazy { FragmentCameraBinding.bind(requireView()) }
-    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         when {
@@ -42,36 +45,40 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     }
 
     private fun launchCamera() {
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-        cameraProviderFuture.addListener(
-            {
-                val cameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                    .build()
+        viewLifecycleOwner.lifecycleScope.launch {
+            val cameraProvider = retrieveCamera()
 
-                val imageAnalysis = ImageAnalysis.Builder()
-                    .setTargetResolution(Size(1280, 720))
-                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .build()
-                    .apply {
-                        setAnalyzer(Runnable::run, BarcodeAnalyzer { barcodes ->
-                            barcodes.forEach {
-                                // TODO: do something with barcodes
-                                println("${it.url?.url}")
-                            }
-                            clearAnalyzer()
-                            cameraProviderFuture.get().unbindAll()
-                        })
-                    }
+            val cameraSelector = CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build()
 
-                val preview = Preview.Builder().build().apply {
-                    setSurfaceProvider(binding.previewView.surfaceProvider)
+            val imageAnalysis = ImageAnalysis.Builder()
+                .setTargetResolution(Size(1280, 720))
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build()
+                .apply {
+                    setAnalyzer(Runnable::run, BarcodeAnalyzer { barcodes ->
+                        barcodes.forEach {
+                            // TODO: do something with barcodes
+                            println("${it.url?.url}")
+                        }
+                        clearAnalyzer()
+                        cameraProvider.unbindAll()
+                    })
                 }
 
-                cameraProviderFuture
-                    .get()
-                    .bindToLifecycle(this, cameraSelector, imageAnalysis, preview)
-            },
+            val preview = Preview.Builder().build().apply {
+                setSurfaceProvider(binding.previewView.surfaceProvider)
+            }
+
+            cameraProvider.bindToLifecycle(this@CameraFragment, cameraSelector, imageAnalysis, preview)
+        }
+    }
+
+    private suspend fun retrieveCamera() = suspendCoroutine<ProcessCameraProvider> { continuation ->
+        val provider = ProcessCameraProvider.getInstance(requireContext())
+        provider.addListener(
+            { continuation.resume(provider.get()) },
             ContextCompat.getMainExecutor(requireContext()),
         )
     }
