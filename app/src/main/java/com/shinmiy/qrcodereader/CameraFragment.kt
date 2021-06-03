@@ -40,6 +40,10 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             .build()
             .apply {
                 setAnalyzer(Runnable::run, BarcodeAnalyzer { barcodes ->
+                    val rawBarcodeString = barcodes.first().rawValue ?: return@BarcodeAnalyzer
+                    showBottomSheet(rawBarcodeString) {
+                        viewLifecycleOwner.lifecycleScope.launchWhenResumed { launchCamera() }
+                    }
                     clearAnalyzer()
                     cameraProvider.unbindAll()
                 })
@@ -53,4 +57,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     }
 }
 
+private fun CameraFragment.showBottomSheet(barcode: String, onDismiss: () -> Unit) {
+    CameraResultBottomSheet().apply {
+        arguments = CameraResultBottomSheetArgs(barcode).toBundle()
+        setOnBottomSheetDismiss(onDismiss)
+    }.show(childFragmentManager, "")
 }

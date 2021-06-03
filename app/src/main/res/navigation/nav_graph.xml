@@ -10,7 +10,18 @@
         android:name="com.shinmiy.qrcodereader.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_cameraFragment_to_cameraResultBottomSheet"
+            app:destination="@id/cameraResultBottomSheet" />
     </fragment>
+    <dialog
+        android:id="@+id/cameraResultBottomSheet"
+        android:name="com.shinmiy.qrcodereader.CameraResultBottomSheet"
+        android:label="CameraResultBottomSheet" >
+        <argument
+            android:name="barcode"
+            app:argType="string" />
+    </dialog>
     <fragment
         android:id="@+id/launchFragment"
         android:name="com.shinmiy.qrcodereader.LaunchFragment"
