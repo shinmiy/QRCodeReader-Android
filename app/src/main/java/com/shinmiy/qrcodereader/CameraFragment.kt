@@ -2,6 +2,9 @@ package com.shinmiy.qrcodereader
 
 import android.os.Bundle
 import android.util.Size
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -18,11 +21,30 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private val binding: FragmentCameraBinding by lazy { FragmentCameraBinding.bind(requireView()) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launchCamera()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.history -> true.also {
+                // TODO: show history screen
+                println("onOptionsItemSelected: history")
+            }
+            else -> false
         }
     }
 
