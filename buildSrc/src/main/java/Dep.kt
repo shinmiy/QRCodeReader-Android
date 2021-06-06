@@ -77,6 +77,7 @@ object Dep {
         }
 
         object Room {
+            const val ktx = "androidx.room:room-ktx:2.3.0"
             const val runtime = "androidx.room:room-runtime:2.3.0"
             const val compiler = "androidx.room:room-compiler:2.3.0"
             const val testing = "androidx.room:room-testing:2.3.0"
