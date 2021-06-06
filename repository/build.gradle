@@ -5,6 +5,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -48,7 +49,10 @@ dependencies {
     implementation Dep.AndroidX.core
 
     implementation Dep.AndroidX.Room.ktx
-    implementation Dep.AndroidX.Room.runtime
+    api Dep.AndroidX.Room.runtime // https://stackoverflow.com/a/53154968
     kapt Dep.AndroidX.Room.compiler
     testImplementation Dep.AndroidX.Room.testing
+
+    implementation Dep.Hilt.android
+    kapt Dep.Hilt.compiler
 }

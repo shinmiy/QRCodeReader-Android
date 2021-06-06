@@ -48,6 +48,15 @@ object Dep {
         const val barcode = "com.google.mlkit:barcode-scanning:16.1.2"
     }
 
+    object Hilt {
+        const val plugin = "com.google.dagger:hilt-android-gradle-plugin:2.36"
+        const val android = "com.google.dagger:hilt-android:2.36"
+        const val compiler = "com.google.dagger:hilt-compiler:2.36"
+
+        const val hiltCommon = "androidx.hilt:hilt-common:1.0.0"
+        const val hiltLifeCycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0"
+    }
+
     object AndroidX {
         const val core = "androidx.core:core-ktx:1.5.0-beta01"
         const val appcompat = "androidx.appcompat:appcompat:1.3.0"
@@ -56,8 +65,6 @@ object Dep {
 
         const val activity = "androidx.activity:activity-ktx:1.2.0"
         const val lifecycle = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
-        const val hiltCommon = "androidx.hilt:hilt-common:1.0.0-alpha03"
-        const val hiltLifeCycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 
         object Navigation {
             const val fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"

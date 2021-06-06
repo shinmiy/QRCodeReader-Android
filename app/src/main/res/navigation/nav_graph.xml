@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.shinmiy.qrcodereader.CameraFragment"
+        android:name="com.shinmiy.qrcodereader.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <dialog
         android:id="@+id/cameraResultBottomSheet"
-        android:name="com.shinmiy.qrcodereader.CameraResultBottomSheet"
+        android:name="com.shinmiy.qrcodereader.result.CameraResultBottomSheet"
         android:label="CameraResultBottomSheet" >
         <argument
             android:name="barcode"
@@ -29,7 +29,7 @@
     </dialog>
     <fragment
         android:id="@+id/launchFragment"
-        android:name="com.shinmiy.qrcodereader.LaunchFragment"
+        android:name="com.shinmiy.qrcodereader.launch.LaunchFragment"
         android:label="fragment_launch"
         tools:layout="@layout/fragment_launch" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.shinmiy.qrcodereader.HistoryFragment"
+        android:name="com.shinmiy.qrcodereader.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
 </navigation>

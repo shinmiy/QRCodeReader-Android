@@ -1,4 +1,4 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.result
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -21,10 +21,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shinmiy.qrcodereader.databinding.FragmentCameraResultBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CameraResultBottomSheet : BottomSheetDialogFragment() {
     private var onDismiss: (() -> Unit)? = null
 
