@@ -1,11 +1,9 @@
 package com.shinmiy.qrcodereader.camera
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shinmiy.repository.Barcode
 import com.shinmiy.repository.BarcodeRepository
-import com.shinmiy.repository.BarcodeRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,9 +11,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class CameraViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
-
-    private val repository: BarcodeRepository = BarcodeRepositoryImpl(application)
+class CameraViewModel @Inject constructor(private val repository: BarcodeRepository) : ViewModel() {
 
     fun saveBarcode(rawBarcodeString: String) {
         viewModelScope.launch(Dispatchers.IO) {
