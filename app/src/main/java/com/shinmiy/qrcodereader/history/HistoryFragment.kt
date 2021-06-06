@@ -19,7 +19,9 @@ import androidx.fragment.app.viewModels
 import com.shinmiy.qrcodereader.R
 import com.shinmiy.qrcodereader.databinding.FragmentHistoryBinding
 import com.shinmiy.repository.Barcode
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val viewModel: HistoryViewModel by viewModels()
 

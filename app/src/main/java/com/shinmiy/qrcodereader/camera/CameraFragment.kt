@@ -17,8 +17,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.shinmiy.qrcodereader.R
 import com.shinmiy.qrcodereader.databinding.FragmentCameraBinding
 import com.shinmiy.qrcodereader.retrieveCamera
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 @androidx.camera.core.ExperimentalGetImage
 class CameraFragment : Fragment(R.layout.fragment_camera) {
     private val viewModel: CameraViewModel by viewModels()

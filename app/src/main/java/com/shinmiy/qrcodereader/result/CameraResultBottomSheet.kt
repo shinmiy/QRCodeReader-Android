@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.shinmiy.qrcodereader.databinding.FragmentCameraResultBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CameraResultBottomSheet : BottomSheetDialogFragment() {
     private var onDismiss: (() -> Unit)? = null
 

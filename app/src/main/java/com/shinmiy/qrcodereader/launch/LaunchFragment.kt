@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import com.shinmiy.qrcodereader.R
 import com.shinmiy.qrcodereader.hasPermission
 import com.shinmiy.qrcodereader.requestPermission
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LaunchFragment : Fragment(R.layout.fragment_launch) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         when {
