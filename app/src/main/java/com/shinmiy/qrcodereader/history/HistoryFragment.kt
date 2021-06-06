@@ -1,4 +1,4 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.history
 
 import android.os.Bundle
 import android.view.View
@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.shinmiy.qrcodereader.R
 import com.shinmiy.qrcodereader.databinding.FragmentHistoryBinding
 import com.shinmiy.repository.Barcode
 
@@ -63,11 +64,4 @@ fun HistoryListItem(barcode: Barcode, onClick: (barcode: Barcode) -> Unit) {
         text = { Text(barcode.barcode) },
         secondaryText = { Text(barcode.createdOn.toString()) },
     )
-}
-
-private fun HistoryFragment.showBottomSheet(barcode: String, onDismiss: () -> Unit) {
-    CameraResultBottomSheet().apply {
-        arguments = CameraResultBottomSheetArgs(barcode).toBundle()
-        setOnBottomSheetDismiss(onDismiss)
-    }.show(childFragmentManager, "")
 }

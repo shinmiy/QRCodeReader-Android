@@ -1,4 +1,4 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.camera
 
 import android.os.Bundle
 import android.util.Size
@@ -14,8 +14,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
+import com.shinmiy.qrcodereader.R
 import com.shinmiy.qrcodereader.databinding.FragmentCameraBinding
+import com.shinmiy.qrcodereader.retrieveCamera
 import kotlinx.coroutines.launch
 
 @androidx.camera.core.ExperimentalGetImage
@@ -83,16 +84,4 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
         cameraProvider.bindToLifecycle(viewLifecycleOwner, cameraSelector, imageAnalysis, preview)
     }
-}
-
-private fun CameraFragment.showBottomSheet(barcode: String, onDismiss: () -> Unit) {
-    CameraResultBottomSheet().apply {
-        arguments = CameraResultBottomSheetArgs(barcode).toBundle()
-        setOnBottomSheetDismiss(onDismiss)
-    }.show(childFragmentManager, "")
-}
-
-private fun CameraFragment.navigateToHistoryFragment() {
-    CameraFragmentDirections.actionCameraFragmentToHistoryFragment()
-        .let(findNavController()::navigate)
 }

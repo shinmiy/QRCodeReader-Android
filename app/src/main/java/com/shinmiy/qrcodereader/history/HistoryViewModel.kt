@@ -1,4 +1,4 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.history
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

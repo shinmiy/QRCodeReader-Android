@@ -1,10 +1,12 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.launch
 
 import android.Manifest
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import com.shinmiy.qrcodereader.R
+import com.shinmiy.qrcodereader.hasPermission
+import com.shinmiy.qrcodereader.requestPermission
 
 class LaunchFragment : Fragment(R.layout.fragment_launch) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -20,7 +22,3 @@ class LaunchFragment : Fragment(R.layout.fragment_launch) {
     }
 }
 
-private fun LaunchFragment.navigateToCameraFragment() {
-    LaunchFragmentDirections.actionLaunchFragmentToCameraFragment()
-        .let(findNavController()::navigate)
-}

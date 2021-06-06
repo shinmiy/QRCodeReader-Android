@@ -1,4 +1,4 @@
-package com.shinmiy.qrcodereader
+package com.shinmiy.qrcodereader.camera
 
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
