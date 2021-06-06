@@ -19,8 +19,6 @@ import kotlinx.coroutines.launch
 @androidx.camera.core.ExperimentalGetImage
 class CameraFragment : Fragment(R.layout.fragment_camera) {
 
-    private val binding: FragmentCameraBinding by lazy { FragmentCameraBinding.bind(requireView()) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -72,6 +70,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             }
 
         val preview = Preview.Builder().build().apply {
+            val binding = FragmentCameraBinding.bind(requireView())
             setSurfaceProvider(binding.previewView.surfaceProvider)
         }
 
