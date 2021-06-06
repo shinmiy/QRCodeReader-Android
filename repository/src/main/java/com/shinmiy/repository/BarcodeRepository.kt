@@ -14,8 +14,7 @@ class BarcodeRepositoryImpl(context: Context) : BarcodeRepository {
 
     override
     suspend fun getAll(): List<Barcode> {
-        db.barcodeDao().getAll()
-        return listOf()
+        return db.barcodeDao().getAll()
     }
 
     override

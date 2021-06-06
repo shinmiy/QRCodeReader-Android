@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_cameraFragment_to_cameraResultBottomSheet"
             app:destination="@id/cameraResultBottomSheet" />
+        <action
+            android:id="@+id/action_cameraFragment_to_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/cameraFragment"
+             />
     </fragment>
     <dialog
         android:id="@+id/cameraResultBottomSheet"
@@ -31,4 +36,9 @@
             android:id="@+id/action_launchFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.shinmiy.qrcodereader.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.shinmiy.qrcodereader.databinding.FragmentCameraBinding
 import kotlinx.coroutines.launch
 
@@ -41,8 +42,11 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.history -> true.also {
-                // TODO: show history screen
-                println("onOptionsItemSelected: history")
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val cameraProvider = requireContext().retrieveCamera()
+                    cameraProvider.unbindAll()
+                    navigateToHistoryFragment()
+                }
             }
             else -> false
         }
@@ -86,4 +90,9 @@ private fun CameraFragment.showBottomSheet(barcode: String, onDismiss: () -> Uni
         arguments = CameraResultBottomSheetArgs(barcode).toBundle()
         setOnBottomSheetDismiss(onDismiss)
     }.show(childFragmentManager, "")
+}
+
+private fun CameraFragment.navigateToHistoryFragment() {
+    CameraFragmentDirections.actionCameraFragmentToHistoryFragment()
+        .let(findNavController()::navigate)
 }
