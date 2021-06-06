@@ -68,7 +68,7 @@ object Dep {
         object Camera {
             const val camera = "androidx.camera:camera-camera2:1.0.0"
             const val lifecycle = "androidx.camera:camera-lifecycle:1.0.0"
-            const val cameraView = "androidx.camera:camera-view:1.0.0-alpha24"
+            const val cameraView = "androidx.camera:camera-view:1.0.0-alpha25"
         }
 
         object Test {
