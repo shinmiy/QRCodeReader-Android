@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.shinmiy.repository.Barcode
 import com.shinmiy.repository.BarcodeRepository
 import com.shinmiy.repository.BarcodeRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HistoryViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class HistoryViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
     private val repository: BarcodeRepository = BarcodeRepositoryImpl(application)
 
     private val _barcodeFlow = MutableStateFlow<List<Barcode>>(listOf())

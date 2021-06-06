@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.shinmiy.repository.Barcode
 import com.shinmiy.repository.BarcodeRepository
 import com.shinmiy.repository.BarcodeRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class CameraViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class CameraViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     private val repository: BarcodeRepository = BarcodeRepositoryImpl(application)
 
