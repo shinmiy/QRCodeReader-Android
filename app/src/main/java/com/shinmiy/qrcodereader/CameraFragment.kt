@@ -10,6 +10,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 
 @androidx.camera.core.ExperimentalGetImage
 class CameraFragment : Fragment(R.layout.fragment_camera) {
+    private val viewModel: CameraViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 setAnalyzer(Runnable::run, BarcodeAnalyzer { barcodes ->
                     val rawBarcodeString = barcodes.first().rawValue ?: return@BarcodeAnalyzer
                     showBottomSheet(rawBarcodeString) {
+                        viewModel.saveBarcode(rawBarcodeString)
                         viewLifecycleOwner.lifecycleScope.launchWhenResumed { launchCamera() }
                     }
                     clearAnalyzer()
