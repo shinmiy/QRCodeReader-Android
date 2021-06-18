@@ -19,29 +19,12 @@ object Dep {
     }
 
     object Kotlin {
-//        const val bom = "org.jetbrains.kotlin:kotlin-bom:1.4.32"
-//
-//        // bom import does not working...
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
-//        const val serializationPlugin = "org.jetbrains.kotlin:kotlin-serialization:1.4.32"
-//        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib"
-//        const val stdlibJdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32"
-//        const val reflect = "org.jetbrains.kotlin:kotlin-reflect"
     }
 
     object Coroutines {
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
     }
-
-//    object Serialization {
-//        const val core = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1"
-//    }
-
-//    object KotlinTest {
-//        const val common = "org.jetbrains.kotlin:kotlin-test-common"
-//        const val annotationCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common"
-//        const val junit = "org.jetbrains.kotlin:kotlin-test-junit"
-//    }
 
     object Google {
         const val material = "com.google.android.material:material:1.3.0"
@@ -90,20 +73,4 @@ object Dep {
             const val testing = "androidx.room:room-testing:2.3.0"
         }
     }
-
-//    const val playServicesOssLicenses = "com.google.android.gms:play-services-oss-licenses:17.0.0"
-//
-//    object SQLDelight {
-//        const val plugin = "com.squareup.sqldelight:gradle-plugin:1.4.4"
-//        const val androidDriver = "com.squareup.sqldelight:android-driver:1.4.4"
-//        const val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:1.4.4"
-//    }
-//
-//    object Flipper {
-//        const val flipper = "com.facebook.flipper:flipper:0.82.1"
-//        const val networkPlugin = "com.facebook.flipper:flipper-network-plugin:0.76.0"
-//        const val soLoader = "com.facebook.soloader:soloader:0.10.1"
-//    }
-//
-//    const val desugarJdkLibs = "com.android.tools:desugar_jdk_libs:1.1.5"
 }
