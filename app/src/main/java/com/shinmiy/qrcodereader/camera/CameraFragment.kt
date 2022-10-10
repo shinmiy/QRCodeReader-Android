@@ -2,13 +2,11 @@ package com.shinmiy.qrcodereader.camera
 
 import android.os.Bundle
 import android.util.Size
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
+import androidx.core.view.MenuHost
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -25,33 +23,26 @@ import kotlinx.coroutines.launch
 class CameraFragment : Fragment(R.layout.fragment_camera) {
     private val viewModel: CameraViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(
+            CameraFragmentMenuProvider(
+                onTapHistory = {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val cameraProvider = requireContext().retrieveCamera()
+                        cameraProvider.unbindAll()
+                        navigateToHistoryFragment()
+                    }
+                }
+            ),
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED,
+        )
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launchCamera()
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.history -> true.also {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    val cameraProvider = requireContext().retrieveCamera()
-                    cameraProvider.unbindAll()
-                    navigateToHistoryFragment()
-                }
-            }
-            else -> false
         }
     }
 
