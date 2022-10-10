@@ -6,7 +6,7 @@ import androidx.room.Query
 
 @Dao
 interface BarcodeDao {
-    @Query("SELECT * FROM barcode")
+    @Query("SELECT * FROM barcode ORDER BY created_on DESC")
     suspend fun getAll(): List<Barcode>
 
     @Insert
