@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -42,7 +42,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerExtensionVersion "1.3.2"
     }
 }
 

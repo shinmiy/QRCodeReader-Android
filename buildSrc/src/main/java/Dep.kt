@@ -1,7 +1,7 @@
 package com.shinmiy.qrcodereader
 
 object Versions {
-    const val compose = "1.0.0-beta08"
+    const val compose = "1.2.1"
     const val coroutines = "1.4.3"
 }
 
@@ -12,14 +12,14 @@ object Dep {
         const val viewbinding = "androidx.compose.ui:ui-viewbinding:${Versions.compose}"
         const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
         const val layout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
-        const val material = "androidx.compose.material:material:${Versions.compose}1"
+        const val material = "androidx.compose.material:material:${Versions.compose}"
         const val livedata = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
         const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-        const val themeAdapter = "com.google.android.material:compose-theme-adapter:${Versions.compose}"
+        const val themeAdapter = "com.google.android.material:compose-theme-adapter:1.1.20"
     }
 
     object Kotlin {
-        const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
     }
 
     object Coroutines {
@@ -32,33 +32,33 @@ object Dep {
     }
 
     object Hilt {
-        const val plugin = "com.google.dagger:hilt-android-gradle-plugin:2.36"
-        const val android = "com.google.dagger:hilt-android:2.36"
-        const val compiler = "com.google.dagger:hilt-compiler:2.36"
+        const val plugin = "com.google.dagger:hilt-android-gradle-plugin:2.44"
+        const val android = "com.google.dagger:hilt-android:2.44"
+        const val compiler = "com.google.dagger:hilt-compiler:2.44"
 
         const val hiltCommon = "androidx.hilt:hilt-common:1.0.0"
         const val hiltLifeCycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0"
     }
 
     object AndroidX {
-        const val core = "androidx.core:core-ktx:1.5.0-beta01"
-        const val appcompat = "androidx.appcompat:appcompat:1.3.0"
-        const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01"
-        const val fragment = "androidx.fragment:fragment-ktx:1.3.4"
+        const val core = "androidx.core:core-ktx:1.9.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.5.1"
+        const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+        const val fragment = "androidx.fragment:fragment-ktx:1.5.3"
 
-        const val activity = "androidx.activity:activity-ktx:1.2.0"
-        const val lifecycle = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+        const val activity = "androidx.activity:activity-ktx:1.6.0"
+        const val lifecycle = "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
         object Navigation {
-            const val fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
-            const val ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
-            const val testing = "androidx.navigation:navigation-testing:2.3.5"
+            const val fragment = "androidx.navigation:navigation-fragment-ktx:2.5.2"
+            const val ui = "androidx.navigation:navigation-ui-ktx:2.5.2"
+            const val testing = "androidx.navigation:navigation-testing:2.5.2"
         }
 
         object Camera {
-            const val camera = "androidx.camera:camera-camera2:1.0.0"
-            const val lifecycle = "androidx.camera:camera-lifecycle:1.0.0"
-            const val cameraView = "androidx.camera:camera-view:1.0.0-alpha25"
+            const val camera = "androidx.camera:camera-camera2:1.1.0"
+            const val lifecycle = "androidx.camera:camera-lifecycle:1.1.0"
+            const val cameraView = "androidx.camera:camera-view:1.1.0"
         }
 
         object Test {
@@ -67,10 +67,10 @@ object Dep {
         }
 
         object Room {
-            const val ktx = "androidx.room:room-ktx:2.3.0"
-            const val runtime = "androidx.room:room-runtime:2.3.0"
-            const val compiler = "androidx.room:room-compiler:2.3.0"
-            const val testing = "androidx.room:room-testing:2.3.0"
+            const val ktx = "androidx.room:room-ktx:2.4.3"
+            const val runtime = "androidx.room:room-runtime:2.4.3"
+            const val compiler = "androidx.room:room-compiler:2.4.3"
+            const val testing = "androidx.room:room-testing:2.4.3"
         }
     }
 }
